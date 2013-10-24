@@ -1,7 +1,7 @@
 # Scenejs On Rails
 ## Plugins last updated October 24th, 2013
 
-First off, if you dont know about "Scenejs":http://scenejs.org/ ,go take a look so you can appreciate what this gem does.
+First off, if you dont know about [Scenejs](http://scenejs.org/) ,go take a look so you can appreciate what this gem does.
 
 For the informed, this gem allows you to utilize scenejs and all of its plugin glory within rails WITHOUT having to load all
 of its javascript files into your asset pipeline. If you are fine with scenejs.org hosting your files AND not being able to
@@ -20,7 +20,7 @@ Disadvantages:
 * You will be hosting an additional 32MB
 * The scenejs.js file is ~580 kb
 
-## If the above sounds good to you, heres how to install
+## Installation
 
 Add this line to your application's Gemfile:
 
