@@ -1,7 +1,7 @@
 # Scenejs On Rails
 ## Plugins last updated October 24th, 2013
 
-First off, if you dont know about [Scenejs]:http://scenejs.org/ ,go take a look so you can appreciate what this gem does.
+First off, if you dont know about "Scenejs":http://scenejs.org/ ,go take a look so you can appreciate what this gem does.
 
 For the informed, this gem allows you to utilize scenejs and all of its plugin glory within rails WITHOUT having to load all
 of its javascript files into your asset pipeline. If you are fine with scenejs.org hosting your files AND not being able to
@@ -38,11 +38,11 @@ Or install it yourself as:
 
 Then add this to your routes.rb
     
-    $ resources :scenejs, only: [:get_scenejs_plugin]
+    resources :scenejs, only: [:get_scenejs_plugin]
 
 And finally add this to your application.js
 
-    $ //= require scenejs
+    //= require scenejs
 
 ## Usage Example
 In a script tag:
@@ -163,11 +163,11 @@ Louis Alridge had originally written some hacks into the source to get things to
 
 Certain libraries like stats.min must be included through the asset pipeline in your application.js like this:
 
-    $ //= require scenejs_lib/stats.min
+    //= require scenejs_lib/stats.min
 
 Anything you'd normally find in /examples/libs in the scenejs repo can be found there... Extras can be found with
 
-    $ //= require scenejs_extras/gui
+    //= require scenejs_extras/gui
 
 ### NOTE!
 
