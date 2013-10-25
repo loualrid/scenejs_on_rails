@@ -17304,4 +17304,4 @@ SceneJS_ChunkFactory.createChunkType({
         ctx.modelMat = this.core.mat;
     }
 });
-SceneJS.configure({ pluginPath: (((location.protocol.length === 0) ? 'http://' : location.protocol + '//') + location.host + '/scenejs/get_scenejs_data?file=') });
+SceneJS.configure({ pluginPath: (((location.protocol.length === 0) ? 'http://' : (location.protocol + '//')) + location.host + '/scenejs/get_scenejs_data?file=') });
