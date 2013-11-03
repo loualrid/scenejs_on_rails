@@ -38,7 +38,7 @@ Or install it yourself as:
 
 Then add this to your routes.rb
     
-    resources :scenejs, only: [:get_scenejs_plugin]
+    get '/scenejs/get_scenejs_data'
 
 And finally add this to your application.js
 
