@@ -1,3 +1,0 @@
-<% #each line must be rendered as html_safe by default or else rails will convert stuff like & to &amp; %>
-<% @file.split("\n").each do |line| %>
-  <%=line.html_safe %>

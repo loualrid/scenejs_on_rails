@@ -1,7 +1,7 @@
 # Scenejs On Rails
 ## Plugins last updated October 24th, 2013
 
-First off, if you dont know about [Scenejs](http://scenejs.org/) ,go take a look so you can appreciate what this gem does.
+First off, if you dont know about [Scenejs](http://scenejs.org/), go take a look so you can appreciate what this gem does.
 
 For the informed, this gem allows you to utilize scenejs and all of its plugin glory within rails WITHOUT having to load all
 of its javascript files into your asset pipeline. If you are fine with scenejs.org hosting your files AND not being able to
@@ -109,7 +109,7 @@ ActionController::RoutingError error.
 
 If you want to link to a image within a plugin you made you should set this in your init function
 ```javascript
-  SceneJS.Types.addType("objects/spacee/my_planets/awesome_sun", {
+  SceneJS.Types.addType("objects/space/my_planets/awesome_sun", {
     
     init:function (params) {
 
@@ -142,7 +142,7 @@ If you plan on using images / whatever as textures within an init file (somethin
 ## Vulnerability via looking for the files?
 
 For the security minded, the scenejs controller figures out where to find its files from params[:file] then searching in two possible locations for that data.
-As the location parses uses File.join() it was possible for an attacker to use '..' to dig up files they are not meant to find. This has been prevented through
+As the location parser uses File.join() it was possible for an attacker to use '..' to dig up files they are not meant to find. This has been prevented through
 statements that scan the params[:file] string. If this occurs, the controller will raise a ActionController::UnpermittedParameters error. This will never occur
 normally.
 
