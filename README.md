@@ -28,13 +28,11 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
     $ gem install scenejs_on_rails
-
-
 
 Then add this to your routes.rb
     
@@ -107,15 +105,20 @@ it will recieve them as raw inline javascript and then mark that plugin as loade
 THEN in its own directory for the javascripts. If it doesn't find the data, the scenejs controller (within rails) raises a 
 ActionController::RoutingError error.
 
-If you want to link to a image within a plugin you made you should set this in your init function
+It is an extremely good idea to have your node type data be based on your filesystem for your plugins. For example, if you are creating a plugin like
+
 ```javascript
-  SceneJS.Types.addType("objects/space/my_planets/awesome_sun", {
+  SceneJS.Types.addType("objects/space/planets/awesome_sun", {
     
     init:function (params) {
 
-      var texturePath = "node/objects/space/my_planets/awesome_sun/";
+      var texturePath = "node/objects/space/planets/awesome_sun/";
 ```
-Then set your texture nodes like so
+Then your plugin should have its main js file be at Rails.root / vendor / javascripts / scenejs_plugins / node / objects / space / planets / awesome_sun.js
+
+For your images, they should be in Rails.root / vendor / javascripts / scenejs_plugins / node / objects / space / planets / awesome_sun (with awesome_sun being
+a directory) and then linked like so:
+
 ```javascript
   type: "texture",
   layers: [
@@ -128,7 +131,7 @@ This will tell scenejs to grab the image data from scenejs controller's get_plug
 
 ### NOTE!
 
-If you plan on using images / whatever as textures within an init file (something that defines the base scene like above), just use your asset pipeline.
+If you plan on using images / whatever as textures within an init script (something that defines the base scene like the earth example), you can use your asset pipeline.
 
 ```javascript
   type: "texture",
@@ -138,6 +141,20 @@ If you plan on using images / whatever as textures within an init file (somethin
     }
   ],
 ```
+You can also setup a path to grab these from if you dont want too many images in your pipeline (advanced graphics may use very large images). For example you could store
+ your images in Rails.root / vendor / javascripts / scenejs_plugins / generic_images and then link to your images like this:
+
+```javascript
+  type: "texture",
+  layers: [
+    {
+      src: "generic_images/mytexture.jpg"
+    }
+  ],
+
+```
+It is always better to store images used in the init script in the pipeline! You dont have a choice for plugins however. It is highly recommended to write all your objects
+as plugins to better utilize DRY which allows you to use the least amount of code possible to render your scene from the init script.
 
 ## Vulnerability via looking for the files?
 
@@ -150,7 +167,7 @@ normally.
 
 ```javascript
   SceneJS.setConfigs({
-   pluginPath: (((location.protocol.length === 0) ? 'http://' : location.protocol + '//') + location.host + '/scenejs/get_scenejs_data?file=')
+   pluginPath: (((location.protocol.length === 0) ? 'http://' : location.protocol + '//') + location.host + '/scenejs/get_scenejs_data.js?file=')
   });
 ```
 
@@ -161,7 +178,7 @@ Louis Alridge had originally written some hacks into the source to get things to
 
 ## SceneJS Libraries
 
-Certain libraries like stats.min must be included through the asset pipeline in your application.js like this:
+Certain libraries like stats.min can be included through the asset pipeline in your application.js like this:
 
     //= require scenejs_lib/stats.min
 
