@@ -28,10 +28,13 @@ class ScenejsController < ApplicationController
       end
 
       in_gem_file_ref = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', "vendor","assets","javascripts","scenejs_plugins", params[:file])
-      in_app_file_ref = Rails.root.join("vendor","assets","javascripts","scenejs_plugins", params[:file])
+      in_app_vendor_file_ref = Rails.root.join("vendor","assets","javascripts","scenejs_plugins", params[:file])
+      in_app_lib_file_ref = Rails.root.join("lib","assets","javascripts","scenejs_plugins", params[:file])
 
-      if File.exist?(in_app_file_ref)
-        fileloc = in_app_file_ref
+      if File.exist?(in_app_lib_file_ref)
+        fileloc = in_app_lib_file_ref
+      elsif File.exist?(in_app_vendor_file_ref)
+        fileloc = in_app_vendor_file_ref
       elsif File.exist?(in_gem_file_ref)
         fileloc = in_gem_file_ref
       end

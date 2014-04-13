@@ -1,5 +1,5 @@
 # Scenejs On Rails
-## Plugins last updated October 24th, 2013
+## Currently Running SceneJS V3.2
 
 First off, if you dont know about [Scenejs](http://scenejs.org/), go take a look so you can appreciate what this gem does.
 
@@ -101,8 +101,8 @@ Simply by declaring
   type: 'myplugin/path'
 ```
 for a node, scenejs will send a request to your app for the plugin data it needs. If it is looking for javascripts that define the node,
-it will recieve them as raw inline javascript and then mark that plugin as loaded. It looks in your /vendor/assets/javascripts/scenejs_plugins folder
-THEN in its own directory for the javascripts. If it doesn't find the data, the scenejs controller (within rails) raises a 
+it will recieve them as raw inline javascript and then mark that plugin as loaded. It looks in your /lib/assets/javascripts/scenejs_plugins folder
+then /vendor/assets/javascripts/scenejs_plugins and finally in its own directory for the javascripts. If it doesn't find the data, the scenejs controller (within rails) raises a 
 ActionController::RoutingError error.
 
 It is an extremely good idea to have your node type data be based on your filesystem for your plugins. For example, if you are creating a plugin like
@@ -114,9 +114,9 @@ It is an extremely good idea to have your node type data be based on your filesy
 
       var texturePath = "node/objects/space/planets/awesome_sun/";
 ```
-Then your plugin should have its main js file be at Rails.root / vendor / javascripts / scenejs_plugins / node / objects / space / planets / awesome_sun.js
+Then your plugin should have its main js file be at Rails.root / lib / assets / javascripts / scenejs_plugins / node / objects / space / planets / awesome_sun.js
 
-For your images, they should be in Rails.root / vendor / javascripts / scenejs_plugins / node / objects / space / planets / awesome_sun (with awesome_sun being
+For your images, they should be in Rails.root / lib / assets / javascripts / scenejs_plugins / node / objects / space / planets / awesome_sun (with awesome_sun being
 a directory) and then linked like so:
 
 ```javascript
@@ -142,7 +142,7 @@ If you plan on using images / whatever as textures within an init script (someth
   ],
 ```
 You can also setup a path to grab these from if you dont want too many images in your pipeline (advanced graphics may use very large images). For example you could store
- your images in Rails.root / vendor / javascripts / scenejs_plugins / generic_images and then link to your images like this:
+ your images in Rails.root / lib / assets / javascripts / scenejs_plugins / generic_images and then link to your images like this:
 
 ```javascript
   type: "texture",
@@ -158,7 +158,7 @@ as plugins to better utilize DRY which allows you to use the least amount of cod
 
 ## Vulnerability via looking for the files?
 
-For the security minded, the scenejs controller figures out where to find its files from params[:file] then searching in two possible locations for that data.
+For the security minded, the scenejs controller figures out where to find its files from params[:file] then searching in three possible locations for that data.
 As the location parser uses File.join() it was possible for an attacker to use '..' to dig up files they are not meant to find. This has been prevented through
 statements that scan the params[:file] string. If this occurs, the controller will raise a ActionController::UnpermittedParameters error. This will never occur
 normally.
