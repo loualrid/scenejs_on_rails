@@ -1,4 +1,6 @@
 class ScenejsController < ApplicationController
+  skip_before_action :verify_authenticity_token, if: :js_request?
+
   def get_scenejs_data
     #scenejs grabs plugins from this path
 
@@ -51,5 +53,11 @@ class ScenejsController < ApplicationController
         raise "ActionController::RoutingError(Scenejs Plugin not found either in gem or app locations:\n #{in_gem_file_ref}\n #{in_app_file_ref})"
       end
     end
+  end
+
+  protected
+
+  def js_request?
+    request.format.js?
   end
 end
