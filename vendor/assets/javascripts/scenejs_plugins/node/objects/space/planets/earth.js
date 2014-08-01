@@ -49,17 +49,17 @@ SceneJS.Types.addType("objects/space/planets/earth", {
 //                                                                                },
                                         {
                                             src:texturePath + "earth.jpg",
-                                            flipY: true,
+                                            flipX: true,
                                             applyTo:"color"
                                         },
                                         {
                                             src:texturePath + "earth-specular.jpg",
-                                            flipY: true,
+                                            flipX: true,
                                             applyTo:"specular"
                                         } ,
                                         {
                                             src:texturePath + "earth-lights.gif",
-                                            flipY: true,
+                                            flipX: true,
                                             applyTo:"emit"
                                         }
                                     ],

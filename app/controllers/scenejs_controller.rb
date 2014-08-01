@@ -45,11 +45,10 @@ class ScenejsController < ApplicationController
         if binary #serves binary image data
           send_data(@file)
         else #serves inline js (system may send as application/zip but this causes no issues)
-          render :inline => @file, :layout => false
+          render inline: @file, layout: false, content_type: 'text/javascript'
         end
       else
-        raise "ActionController::RoutingError"
-        puts "Scenejs Plugin not found either in gem or app locations:\n #{in_gem_file_ref}\n #{in_app_file_ref}"
+        raise "ActionController::RoutingError(Scenejs Plugin not found either in gem or app locations:\n #{in_gem_file_ref}\n #{in_app_file_ref})"
       end
     end
   end
