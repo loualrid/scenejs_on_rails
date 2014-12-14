@@ -1,5 +1,5 @@
 class ScenejsController < ApplicationController
-  skip_before_action :verify_authenticity_token, if: :js_request?
+  skip_before_action :verify_authenticity_token
 
   def get_scenejs_data
     #scenejs grabs plugins from this path
@@ -47,17 +47,13 @@ class ScenejsController < ApplicationController
         if binary #serves binary image data
           send_data(@file)
         else #serves inline js (system may send as application/zip but this causes no issues)
-          render inline: @file, layout: false, content_type: 'text/javascript'
+          respond_to do |format|
+            format.js { render js: @file, layout: false, content_type: Mime::JS }
+          end
         end
       else
         raise "ActionController::RoutingError(Scenejs Plugin not found either in gem or app locations:\n #{in_gem_file_ref}\n #{in_app_file_ref})"
       end
     end
-  end
-
-  protected
-
-  def js_request?
-    request.format.js?
   end
 end
